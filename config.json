@@ -2,8 +2,7 @@
     "coinbasepro": {
         "api_url": "https://api.pro.coinbase.com",
         "config": {
-            "sim-sample": 300,
-            "sim": "slow",
+
             "autorestart": 1,
             "base_currency": "ADA",
             "disablebullonly": 1,
@@ -31,8 +30,7 @@
             "trailingstoploss": -1.5,
             "trailingstoplosstrigger": 6,
             "websocket": 0,
-            "graphs":1,
-            "simstartdate":"2020-01-01"
+
         },
         "api_key_file": "coinbasepro.key"
     },
