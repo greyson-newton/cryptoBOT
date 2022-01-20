@@ -319,6 +319,8 @@ class PyCryptoBot(BotConfig):
             simend = self.getDateFromISO8601Str(simend)
             print('APP -> sim starting at ',simstart)
             print('APP -> sim ending at ',simend)
+            print('startdate ',str(df.head(1).index.format()[0]))
+            print('enddate ',str(df.tail(1).index.format()[0]))
             try:
                 df_first = None
                 df_last = None
@@ -326,8 +328,8 @@ class PyCryptoBot(BotConfig):
                 # logger.debug("Row Count (" + str(granularity) + "): " + str(df.shape[0]))
                 # if df already has data get first and last record date
                 print('TRY - pd.setDate ')
-                print('startdate ',str(df.head(1).index.format()[0]))
-                print('enddate ',str(df.tail(1).index.format()[0]))
+                
+                
                 #df_first = self.getDateFromISO8601Str()
                 #df_last = self.getDateFromISO8601Str(str(df.tail(1).index.format()[0]))
                 #print('TRY - pd.setDate ',df_first,df_last)
