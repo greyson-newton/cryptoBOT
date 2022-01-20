@@ -230,6 +230,7 @@ class PyCryptoBot(BotConfig):
 
     def getDateFromISO8601Str(self, date: str):
         # if date passed from datetime.now() remove milliseconds
+        print('APP -> getting date- ',date)
         if date.find(".") != -1:
             dt = date.split(".")[0]
             date = dt
