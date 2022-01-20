@@ -59,6 +59,7 @@ class Strategy:
             if not app.isSimulation() or (
                 app.isSimulation() and not app.simResultOnly()
             ):
+                print(str(now))
                 log_text = (
                     str(now)
                     + " | "
