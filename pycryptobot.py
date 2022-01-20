@@ -46,12 +46,13 @@ telegram_bot = TelegramBotHelper(app)
 
 s = sched.scheduler(time.time, time.sleep)
 
-pd.set_option('display.float_format', '{:.8f}'.format)
+pd.set_option("display.float_format", "{:.8f}".format)
+
 
 def signal_handler(signum, frame):
     if signum == 2:
         print("Please be patient while websockets terminate!")
-        #Logger.debug(frame)
+        # Logger.debug(frame)
         return
 
 
@@ -561,7 +562,9 @@ def executeJob(
                 immediate_action = True
 
         # handle overriding wait actions (e.g. do not sell if sell at loss disabled!, do not buy in bull if bull only)
-        if immediate_action is not True and strategy.isWaitTrigger(_app, margin, goldencross):
+        if immediate_action is not True and strategy.isWaitTrigger(
+            _app, margin, goldencross
+        ):
             _state.action = "WAIT"
             immediate_action = False
 
@@ -579,7 +582,12 @@ def executeJob(
         # If buy signal, save the price and check for decrease/increase before buying.
         trailing_buy_logtext = ""
         if _state.action == "BUY" and immediate_action is not True:
-            _state.action, _state.trailing_buy, trailing_buy_logtext, immediate_action = strategy.checkTrailingBuy(_app, _state, price)
+            (
+                _state.action,
+                _state.trailing_buy,
+                trailing_buy_logtext,
+                immediate_action,
+            ) = strategy.checkTrailingBuy(_app, _state, price)
 
         bullbeartext = ""
         if _app.disableBullOnly() is True or (
@@ -991,7 +999,9 @@ def executeJob(
                 debug = False
 
                 if debug:
-                    Logger.debug(f"-- Iteration: {str(_state.iterations)} --{bullbeartext}")
+                    Logger.debug(
+                        f"-- Iteration: {str(_state.iterations)} --{bullbeartext}"
+                    )
 
                 if _state.last_action == "BUY":
                     if _state.last_buy_size > 0:
@@ -1006,16 +1016,26 @@ def executeJob(
 
                 if debug:
                     Logger.debug(f"price: {truncate(price)}")
-                    Logger.debug(f'ema12: {truncate(float(df_last["ema12"].values[0]))}')
-                    Logger.debug(f'ema26: {truncate(float(df_last["ema26"].values[0]))}')
+                    Logger.debug(
+                        f'ema12: {truncate(float(df_last["ema12"].values[0]))}'
+                    )
+                    Logger.debug(
+                        f'ema26: {truncate(float(df_last["ema26"].values[0]))}'
+                    )
                     Logger.debug(f"ema12gtema26co: {str(ema12gtema26co)}")
                     Logger.debug(f"ema12gtema26: {str(ema12gtema26)}")
                     Logger.debug(f"ema12ltema26co: {str(ema12ltema26co)}")
                     Logger.debug(f"ema12ltema26: {str(ema12ltema26)}")
-                    Logger.debug(f'sma50: {truncate(float(df_last["sma50"].values[0]))}')
-                    Logger.debug(f'sma200: {truncate(float(df_last["sma200"].values[0]))}')
+                    Logger.debug(
+                        f'sma50: {truncate(float(df_last["sma50"].values[0]))}'
+                    )
+                    Logger.debug(
+                        f'sma200: {truncate(float(df_last["sma200"].values[0]))}'
+                    )
                     Logger.debug(f'macd: {truncate(float(df_last["macd"].values[0]))}')
-                    Logger.debug(f'signal: {truncate(float(df_last["signal"].values[0]))}')
+                    Logger.debug(
+                        f'signal: {truncate(float(df_last["signal"].values[0]))}'
+                    )
                     Logger.debug(f"macdgtsignal: {str(macdgtsignal)}")
                     Logger.debug(f"macdltsignal: {str(macdltsignal)}")
                     Logger.debug(f"obv: {str(obv)}")
@@ -1172,14 +1192,18 @@ def executeJob(
                             ac = account.getBalance()
                             try:
 
-                                df_base = ac[ac["currency"] == _app.getBaseCurrency()]["available"]
+                                df_base = ac[ac["currency"] == _app.getBaseCurrency()][
+                                    "available"
+                                ]
                                 account.basebalance = (
                                     0.0
                                     if len(df_base) == 0
                                     else float(df_base.values[0])
                                 )
 
-                                df_quote = ac[ac["currency"] == _app.getQuoteCurrency()]["available"]
+                                df_quote = ac[
+                                    ac["currency"] == _app.getQuoteCurrency()
+                                ]["available"]
 
                                 account.quotebalance = (
                                     0.0
@@ -1401,7 +1425,7 @@ def executeJob(
                         baseamounttosell,
                         _app.getSellPercent(),
                     )
-                    #Logger.debug(resp)
+                    # Logger.debug(resp)
 
                     # display balances
                     account.basebalance = float(
@@ -1804,12 +1828,14 @@ def executeJob(
             if _state.last_action == "BUY" and _state.in_open_trade:
                 # update margin for telegram bot
                 telegram_bot.addmargin(
-                    str(_truncate(margin, 4) + "%") if _state.in_open_trade == True else " ",
+                    str(_truncate(margin, 4) + "%")
+                    if _state.in_open_trade == True
+                    else " ",
                     str(_truncate(profit, 2)) if _state.in_open_trade == True else " ",
                     price,
                     change_pcnt_high,
                 )
-            
+
             # Update the watchdog_ping
             telegram_bot.updatewatchdogping()
 
