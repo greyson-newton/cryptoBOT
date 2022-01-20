@@ -330,7 +330,7 @@ class PyCryptoBot(BotConfig):
                 print('enddate ',str(df.tail(1).index.format()[0]))
                 #df_first = self.getDateFromISO8601Str()
                 #df_last = self.getDateFromISO8601Str(str(df.tail(1).index.format()[0]))
-                print('TRY - pd.setDate ',df_first,df_last)
+                #print('TRY - pd.setDate ',df_first,df_last)
             except Exception:  # pylint: disable=broad-except
                 # if df = None create a new data frame
                 print('ERROR - pd.setDate ')
