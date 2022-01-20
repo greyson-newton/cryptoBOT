@@ -22,7 +22,7 @@
             "nobuynearhighpcnt": 4,
             "nosellmaxpcnt": 3,
             "nosellminpcnt": -3,
-            "quote_currency": "GBP",
+            "quote_currency": "USD",
             "sellatloss": 1,
             "sellatresistance": 0,
             "selllowerpcnt": -12,
