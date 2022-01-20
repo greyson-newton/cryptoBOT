@@ -579,7 +579,6 @@ def executeJob(
         # If buy signal, save the price and check for decrease/increase before buying.
         trailing_buy_logtext = ""
         if _state.action == "BUY" and immediate_action is not True:
-            print('BUY signal',strategy.checkTrailingBuy(_app, _state, price))
             _state.action, _state.trailing_buy, trailing_buy_logtext, immediate_action = strategy.checkTrailingBuy(_app, _state, price)
 
         bullbeartext = ""
@@ -685,7 +684,7 @@ def executeJob(
 
             if two_black_gapping is True:
                 log_text = '*** Candlestick Detected: Two Black Gapping ("Reliable - Reversal - Bearish Pattern - Down")'
-            print('logging BUY signal')
+
             if (
                 log_text != ""
                 and not _app.isSimulation()
@@ -941,7 +940,6 @@ def executeJob(
                 if _state.last_action == "BUY":
                     if _state.last_buy_size > 0:
                         margin_text = truncate(margin) + "%"
-                        print('lastBUY-margin',margin)
                     else:
                         margin_text = "0%"
 
@@ -952,7 +950,6 @@ def executeJob(
                         + str(round(price - _state.last_buy_price, precision))
                         + ")"
                     )
-                    
                     if _app.isSimulation():
                         # save margin for Summary if open trade
                         _state.open_trade_margin = margin_text
@@ -960,8 +957,7 @@ def executeJob(
                 if not _app.isSimulation() or (
                     _app.isSimulation() and not _app.simResultOnly()
                 ):
-                    print('lastBUY-output',output_text)
-                    #Logger.info(output_text)
+                    Logger.info(output_text)
 
                 if _app.enableML():
                     # Seasonal Autoregressive Integrated Moving Average (ARIMA) model (ML prediction for 3 intervals from now)
@@ -980,7 +976,6 @@ def executeJob(
                             pass
 
                 if _state.last_action == "BUY":
-                    print('lastBUY')
                     # display support, resistance and fibonacci levels
                     if not _app.isSimulation() or (
                         _app.isSimulation() and not _app.simResultOnly()
@@ -990,7 +985,7 @@ def executeJob(
                                 price
                             )
                         )
-                    print('FIBO')
+
             else:
                 # set to true for verbose debugging
                 debug = False
@@ -1102,8 +1097,7 @@ def executeJob(
             if _state.action == "BUY":
                 _state.last_buy_price = price
                 _state.last_buy_high = _state.last_buy_price
-                print('debug')
-                print(formatted_current_df_index)
+
                 # if live
                 if _app.isLive():
                     if not _app.insufficientfunds and _app.getBuyMinSize() < float(
@@ -1205,8 +1199,7 @@ def executeJob(
                         Logger.info(
                             f"{_app.getQuoteCurrency()} balance after order: {str(account.quotebalance)}"
                         )
-                        print('debug')
-                        print(current_sim_date)
+
                         now = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
                         _app.notifyTelegram(
                             _app.getMarket()
@@ -1305,12 +1298,10 @@ def executeJob(
                                 _state.fib_high = bands[second_key]
 
                     else:
-                        print(str(current_sim_date))
-                        text_box.center(str(current_sim_date))
                         text_box.singleLine()
                         text_box.center("*** Executing TEST Buy Order ***")
                         text_box.singleLine()
-                        
+
                     _app.trade_tracker = _app.trade_tracker.append(
                         {
                             "Datetime": str(current_sim_date),
@@ -1571,6 +1562,7 @@ def executeJob(
                         tradinggraphs.renderEMAandMACD(
                             len(trading_data), "graphs/" + filename, True
                         )
+
             # last significant action
             if _state.action in ["BUY", "SELL"]:
                 _state.last_action = _state.action
