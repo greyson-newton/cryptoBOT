@@ -579,6 +579,7 @@ def executeJob(
         # If buy signal, save the price and check for decrease/increase before buying.
         trailing_buy_logtext = ""
         if _state.action == "BUY" and immediate_action is not True:
+            print('BUY signal',strategy.checkTrailingBuy(_app, _state, price))
             _state.action, _state.trailing_buy, trailing_buy_logtext, immediate_action = strategy.checkTrailingBuy(_app, _state, price)
 
         bullbeartext = ""
@@ -684,7 +685,7 @@ def executeJob(
 
             if two_black_gapping is True:
                 log_text = '*** Candlestick Detected: Two Black Gapping ("Reliable - Reversal - Bearish Pattern - Down")'
-
+            print('logging BUY signal')
             if (
                 log_text != ""
                 and not _app.isSimulation()
