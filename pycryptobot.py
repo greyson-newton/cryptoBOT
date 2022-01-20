@@ -976,6 +976,7 @@ def executeJob(
                             pass
 
                 if _state.last_action == "BUY":
+                    print('FIBO')
                     # display support, resistance and fibonacci levels
                     if not _app.isSimulation() or (
                         _app.isSimulation() and not _app.simResultOnly()
@@ -985,7 +986,7 @@ def executeJob(
                                 price
                             )
                         )
-
+                    print('FIBO')
             else:
                 # set to true for verbose debugging
                 debug = False
