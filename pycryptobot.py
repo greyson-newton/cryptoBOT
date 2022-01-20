@@ -1102,7 +1102,8 @@ def executeJob(
             if _state.action == "BUY":
                 _state.last_buy_price = price
                 _state.last_buy_high = _state.last_buy_price
-
+                print('debug')
+                print(formatted_current_df_index)
                 # if live
                 if _app.isLive():
                     if not _app.insufficientfunds and _app.getBuyMinSize() < float(
@@ -1204,7 +1205,8 @@ def executeJob(
                         Logger.info(
                             f"{_app.getQuoteCurrency()} balance after order: {str(account.quotebalance)}"
                         )
-
+                        print('debug')
+                        print(current_sim_date)
                         now = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
                         _app.notifyTelegram(
                             _app.getMarket()
@@ -1567,7 +1569,6 @@ def executeJob(
                         tradinggraphs.renderEMAandMACD(
                             len(trading_data), "graphs/" + filename, True
                         )
-
             # last significant action
             if _state.action in ["BUY", "SELL"]:
                 _state.last_action = _state.action
