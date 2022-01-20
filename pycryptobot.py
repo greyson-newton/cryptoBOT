@@ -1305,6 +1305,7 @@ def executeJob(
                                 _state.fib_high = bands[second_key]
 
                     else:
+                        print(str(current_sim_date))
                         text_box.center(str(current_sim_date))
                         text_box.singleLine()
                         text_box.center("*** Executing TEST Buy Order ***")
