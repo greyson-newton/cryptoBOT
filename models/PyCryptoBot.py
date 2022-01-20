@@ -325,11 +325,13 @@ class PyCryptoBot(BotConfig):
 
                 # logger.debug("Row Count (" + str(granularity) + "): " + str(df.shape[0]))
                 # if df already has data get first and last record date
+                print('TRY - pd.setDate ')
                 df_first = self.getDateFromISO8601Str(str(df.head(1).index.format()[0]))
                 df_last = self.getDateFromISO8601Str(str(df.tail(1).index.format()[0]))
-
+                print('TRY - pd.setDate ',df_first,df_last)
             except Exception:  # pylint: disable=broad-except
                 # if df = None create a new data frame
+                print('ERROR - pd.setDate ')
                 result_df_cache = pd.DataFrame()
 
             if df_first is None and df_last is None:
