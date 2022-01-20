@@ -1305,10 +1305,11 @@ def executeJob(
                                 _state.fib_high = bands[second_key]
 
                     else:
+                        text_box.center(str(current_sim_date))
                         text_box.singleLine()
                         text_box.center("*** Executing TEST Buy Order ***")
                         text_box.singleLine()
-                        text_box.center(str(current_sim_date))
+                        
                     _app.trade_tracker = _app.trade_tracker.append(
                         {
                             "Datetime": str(current_sim_date),
