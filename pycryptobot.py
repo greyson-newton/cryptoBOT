@@ -940,6 +940,7 @@ def executeJob(
                 if _state.last_action == "BUY":
                     if _state.last_buy_size > 0:
                         margin_text = truncate(margin) + "%"
+                        print('lastBUY-margin',margin)
                     else:
                         margin_text = "0%"
 
@@ -950,6 +951,7 @@ def executeJob(
                         + str(round(price - _state.last_buy_price, precision))
                         + ")"
                     )
+                    
                     if _app.isSimulation():
                         # save margin for Summary if open trade
                         _state.open_trade_margin = margin_text
@@ -957,7 +959,8 @@ def executeJob(
                 if not _app.isSimulation() or (
                     _app.isSimulation() and not _app.simResultOnly()
                 ):
-                    Logger.info(output_text)
+                    print('lastBUY-output',output_text)
+                    #Logger.info(output_text)
 
                 if _app.enableML():
                     # Seasonal Autoregressive Integrated Moving Average (ARIMA) model (ML prediction for 3 intervals from now)
@@ -976,7 +979,7 @@ def executeJob(
                             pass
 
                 if _state.last_action == "BUY":
-                    print('FIBO')
+                    print('lastBUY')
                     # display support, resistance and fibonacci levels
                     if not _app.isSimulation() or (
                         _app.isSimulation() and not _app.simResultOnly()
