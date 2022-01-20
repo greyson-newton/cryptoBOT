@@ -61,7 +61,8 @@ class Strategy:
             ):
                 print(str(now))
                 log_text = (
-                    str(now)
+                    "yada"
+                    + str(now)
                     + " | "
                     + self.app.getMarket()
                     + " | "
