@@ -316,7 +316,8 @@ class PyCryptoBot(BotConfig):
 
             simstart = self.getDateFromISO8601Str(simstart)
             simend = self.getDateFromISO8601Str(simend)
-
+            print('APP -> sim starting at ',simstart)
+            print('APP -> sim ending at ',simend)
             try:
                 df_first = None
                 df_last = None
